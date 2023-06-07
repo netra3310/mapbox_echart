@@ -29,6 +29,14 @@
 				width: 20vw;
 				height: 30vh;
 			}
+			.selected-datetime {
+				width: 100px;
+				height: 30px;
+				background-color: blueviolet;
+				top: 20px;
+				position: relative;
+				color: white;
+			}
 		</style>
 	</head>
 	<body>
@@ -38,6 +46,7 @@
 		<div class="container">
 			<div id="echart-bar" class="simple-chart"></div>
 			<div id="echart-punch-card"></div>
+			<div id="selected-datetime" class="selected-datetime"></div>
 		</div>
 	</body>
 	<script>
@@ -56,7 +65,7 @@
 			// Choose from Mapbox's core styles, or make your own style with Mapbox Studio
 			style: 'mapbox://styles/mapbox/streets-v12', // style URL
 			center: [lng, lat], // starting position [lng, lat]
-			zoom: 9 // starting zoom
+			zoom: 8 // starting zoom
 		});
 		map.on('load', () => {
 			map.addLayer({
@@ -64,7 +73,7 @@
 				type: 'circle',
 				source: {
 					type: 'geojson',
-					data: './collisions1601.geojson'
+					data: './collision_origin.geojson'
 				},
 				paint: {
 					'circle-radius': [
@@ -73,8 +82,8 @@
 						['number', ['get', 'Casualty']],
 						0,
 						4,
-						5,
-						24
+						8,
+						16
 					],
 					'circle-color': [
 						'interpolate',
@@ -649,15 +658,36 @@
 		punchOption && punchCardChart.setOption(punchOption);
 
 		punchCardChart.on('click', { seriesIndex: 0 }, function(event) {
-			console.log("day: ", event.data.yAxis);
-			console.log("time: ", event.data.week);
-			console.log("value: ", event.data.value);
+			var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+			var rowDate = event.data.yAxis;
+			var rowHour = event.data.week;
 
+			var selectedDatetime = document.getElementById("selected-datetime");
+			selectedDatetime.innerHTML = rowDate + "::" + rowHour;
+
+
+			var ampm = rowHour.slice(-2);
+			var onlyDay = rowDate.slice(0, 2);
+			var day = "";
+			var hour = 0;
+			if (ampm === "am") {
+				hour = parseInt(rowHour.substr(0, rowHour.length - 2));
+			} else {
+				hour = parseInt(rowHour.substr(0, rowHour.length - 2)) + 12;
+			}
+			day = days[parseInt(onlyDay) % 7];
+
+			var filterDate = ['==', ['string', ['get', 'Day']], day];
+			var filterHour = ["==", ["number", ["get", "Hour"]], hour];
+			map.setFilter("collisions", ["all", filterDate, filterHour]);
+
+			/*
 			map.flyTo({
 				// do something to calculate moving position
 				center: [lng + (event.data.value - 50) / 5 , lat - (event.data.value - 50) / 5],
 				essential: false
 			});
+			*/
 		});
 	</script>
 
