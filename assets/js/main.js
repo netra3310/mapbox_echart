@@ -53,6 +53,12 @@ map.on('load', () => {
         }
     });
 });
+map.on('click', 'collisions', (e) => {
+    new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(e.features[0].properties.Casualty)
+        .addTo(map);
+})
 
 // handle simple bar chart
 var echartBarEle = document.getElementById("echart-bar");
