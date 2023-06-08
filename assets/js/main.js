@@ -52,6 +52,9 @@ map.on('load', () => {
             'circle-opacity': 0.8
         }
     });
+
+    var zeroFilter = ["!=", ['number', ["get", "Casualty"]], 0]
+    map.setFilter("collisions", zeroFilter);
 });
 map.on('click', 'collisions', (e) => {
     var html = `
@@ -643,9 +646,10 @@ punchCardChart.on('click', { seriesIndex: 0 }, function(event) {
     }
     day = days[parseInt(onlyDay) % 7];
 
+    var zeroFilter = ["!=", ['number', ["get", "Casualty"]], 0]
     var filterDate = ['==', ['string', ['get', 'Day']], day];
     var filterHour = ["==", ["number", ["get", "Hour"]], hour];
-    map.setFilter("collisions", ["all", filterDate, filterHour]);
+    map.setFilter("collisions", ["all", filterDate, filterHour, zeroFilter]);
 
     /*
     map.flyTo({
