@@ -1,0 +1,58 @@
+body {
+    margin: 0; 
+    padding: 0; 
+}
+
+.logo {
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    left: 60px;
+    background: aliceblue;
+    border: darkgray solid 2px;
+    border-radius: 12px;
+}
+.logo-link {
+    display: contents;
+}
+.logo-image-div {
+    display: inline-flex;
+    padding: 10px;
+}
+.logo-image-div.logo1 {
+    border-right: darkgray solid 1px;
+}
+.logo-image {
+    width: 100px;
+}
+.container {
+    text-align: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+#map { 
+    position: relative; 
+    top: 0;
+    width: 100vw; 
+    height: 100vh; 
+}
+#echart-punch-card {
+    position: relative; 
+    height: 50vh;
+    width: 50vw;
+}
+#echart-bar {
+    position: relative;
+    width: 20vw;
+    height: 30vh;
+}
+.selected-datetime {
+    width: 100px;
+    height: 30px;
+    background-color: blueviolet;
+    top: 20px;
+    position: relative;
+    color: white;
+}
