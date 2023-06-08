@@ -4,12 +4,8 @@
 		<meta charset="utf-8">
 		<title>Dashboard-mapbox-echart</title>
 		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-		<!-- Bootstrap core CSS -->
-		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
 		<link href="/assets/css/style.css" rel="stylesheet">
-		<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-		<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
 	</head>
 	<body>
 		<div class="logo">
@@ -22,9 +18,9 @@
 				</div>
 			</a>
 		</div>
-		<button class="convert-button left-middle"></button>
-		<button class="convert-button center-bottom"></button>
-		<div class="container container-map">
+		<div class="container" id="container-map">
+			<button class="convert-button button-left" onclick="toggleDashboard('left')"></button>
+			<button class="convert-button button-bottom" onclick="toggleDashboard('bottom')"></button>
 			<div class="top-labels">
 				<div class="label-1 label-date-range">
 					Date: 05 April - 25 April 2023
@@ -37,11 +33,19 @@
 			</div>
 			<div id="map"></div>
 		</div>
-		<!-- <div class="container container-punch-card">
+		<div class="container" id="container-echarts" style="display: none">
+			<button class="convert-button button-right" onclick="toggleDashboard('right')"></button>
 			<div id="echart-bar" class="simple-chart"></div>
-			<div id="echart-punch-card"></div>
 			<div id="selected-datetime" class="selected-datetime"></div>
-		</div> -->
+			sdfasdfasd
+		</div>
+		<div class="container" id="container-punch-card" style="display: none;">
+			<button class="convert-button button-top" onclick="toggleDashboard('top')"></button>
+			<div id="echart-punch-card"></div>
+		</div>
 	</body>
-	<script src="/assets/js/main.js" charset="utf-8"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/echarts@5.1.2/dist/echarts.min.js"></script>
+	<script src="/assets/js/main.js" charset="utf-8" type="text/javascript"></script>
 </html>

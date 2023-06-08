@@ -580,7 +580,15 @@ var source = [
 ];
 
 var punchOption = {
-    "tooltip": {},
+    "tooltip": {
+		trigger: "item",
+        formatter: function(params) {
+            return `
+                ${params.data.yAxis} : ${params.data.week} <br/>
+                value: ${params.data.value}
+            `;
+        }
+	},
     "dataset": {
         "source": source,
         "dimensions": ["week", "yAxis", "value"]
@@ -636,3 +644,37 @@ punchCardChart.on('click', { seriesIndex: 0 }, function(event) {
     });
     */
 });
+
+function toggleDashboard(type) {
+	switch (type) {
+		case "left":
+			$("#container-map").animate({ "marginLeft": "+=100%" }, 500, function() {
+				$(this).hide();
+				$(this).css("marginLeft", "0");
+			  });
+			$("#container-echarts").css("marginLeft", "-100%").show().animate({ "marginLeft": "0" }, 500);
+			break;
+		case "right":
+			$("#container-echarts").animate({ "marginRight": "+=100%" }, 500, function() {
+				$(this).hide();
+				$(this).css("marginRight", "0");
+			  });
+			$("#container-map").css("marginLeft", "100%").show().animate({ "marginLeft": "0" }, 500);
+			break;
+		case "top":
+			$("#container-punch-card").slideDown(500, function() {
+				$(this).hide();
+			});
+			$("#container-map").slideDown(500);
+			break;
+		case "bottom":
+			$("#container-punch-card").slideUp(500, function() {
+				$(this).show();
+			});
+			$("#container-map").slideUp(500, function() {
+				$(this).hide();
+			});
+			break;
+	}
+
+}
