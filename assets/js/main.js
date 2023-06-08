@@ -54,9 +54,14 @@ map.on('load', () => {
     });
 });
 map.on('click', 'collisions', (e) => {
+    var html = `
+        # People <br/>
+        ${e.features[0].properties.Casualty * 100000} <br/>
+        Area covered x2km
+    `;
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
-        .setHTML(e.features[0].properties.Casualty)
+        .setHTML(html)
         .addTo(map);
 })
 
